@@ -1,0 +1,22 @@
+﻿project:
+  name: Anya AI
+  author: Klim
+  version: 0.1.0
+
+model:
+  vocab_size: 8000
+  embed_dim: 256
+  num_heads: 4
+  num_layers: 4
+  max_seq_len: 256
+  dropout: 0.1
+
+train:
+  batch_size: 16
+  learning_rate: 0.0003
+  epochs: 10
+
+paths:
+  corpus: data/corpus.txt
+  checkpoint: checkpoints/anya.pt
+  tokenizer: checkpoints/tokenizer.json

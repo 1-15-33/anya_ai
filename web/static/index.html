@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anya AI</title>
+<link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- ЭКРАН ВХОДА/РЕГИСТРАЦИИ -->
+<div class="auth" id="authScreen">
+  <div class="auth-card">
+    <h1>ANYA <span>AI</span></h1>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login">Вход</button>
+      <button class="auth-tab" data-tab="register">Регистрация</button>
+    </div>
+    <input type="text" id="authName" placeholder="Имя профиля" autocomplete="username">
+    <div class="pw-wrap">
+      <input type="password" id="authPassword" placeholder="Пароль" autocomplete="current-password">
+      <button type="button" class="pw-toggle" id="pwToggle" title="Показать пароль">👁</button>
+    </div>
+    <div class="auth-error" id="authError"></div>
+    <button class="auth-submit" id="authSubmit">Войти</button>
+    <p class="auth-note">Данные хранятся локально в браузере. Это учебный проект.</p>
+  </div>
+</div>
+
+<!-- СТАРТОВЫЙ ЭКРАН ВЫБОРА РЕЖИМА -->
+<div class="welcome" id="welcomeScreen" style="display:none;">
+  <div class="welcome-inner">
+    <h1>ANYA <span>AI</span></h1>
+    <p class="welcome-sub">Выбери, как Anya будет с тобой говорить</p>
+    <div class="welcome-cards">
+      <div class="welcome-card" data-mode="character">
+        <div class="wc-icon">🎭</div>
+        <div class="wc-title">Персонаж</div>
+        <div class="wc-desc">Anya станет героем из книги, фильма или игры</div>
+      </div>
+      <div class="welcome-card" data-mode="human">
+        <div class="wc-icon">💬</div>
+        <div class="wc-title">Человек</div>
+        <div class="wc-desc">Обычный разговор, как с другом</div>
+      </div>
+      <div class="welcome-card" data-mode="neural">
+        <div class="wc-icon">🧠</div>
+        <div class="wc-title">Нейронка</div>
+        <div class="wc-desc">Технологии, код, ИИ — по делу</div>
+      </div>
+    </div>
+    <p class="welcome-note">Выбор можно изменить в чате в любой момент</p>
+  </div>
+</div>
+
+<!-- ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
+<div class="app-shell" id="app" style="display:none;">
+  <aside class="sidebar">
+    <div class="logo">ANYA <span>AI</span></div>
+
+    <div class="profile-row">
+      <div class="profile-avatar" id="profileAvatar" title="Сменить аватар">👤</div>
+      <select id="profileSelect" title="Профиль"></select>
+      <button id="newProfileBtn" title="Новый профиль">＋</button>
+      <input type="file" id="avatarInput" accept="image/*" style="display:none">
+    </div>
+
+    <div class="new-chat" id="newChat">＋ Новый чат</div>
+    <div class="history" id="history"></div>
+    <div class="bottom">
+      <span id="profileName"></span>
+      <div class="bottom-actions">
+        <button class="theme-btn" id="themeBtn" title="Тема">🌙</button>
+        <button class="theme-btn" id="logoutBtn" title="Выйти">⎋</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">Anya AI <span class="mode-pill" id="modePill">Персонаж</span></div>
+    <div class="chat" id="chat">
+      <div class="chat-inner" id="chatInner"></div>
+    </div>
+    <div class="composer-wrap">
+      <div class="mode-select">
+        <button class="active" data-mode="character">Персонаж</button>
+        <button data-mode="human">Человек</button>
+        <button data-mode="neural">Нейронка</button>
+      </div>
+      <div class="composer">
+        <textarea id="input" rows="1" placeholder="Напиши сообщение Anya..."></textarea>
+        <button id="send" title="Отправить">➤</button>
+      </div>
+      <div class="disclaimer">
+        Anya может ошибаться. Это открытый проект — проверяй её.
+        · <a href="/static/privacy.html" target="_blank">Конфиденциальность</a>
+        · <a href="/static/terms.html" target="_blank">Условия</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
