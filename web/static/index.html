@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="ru">
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Anya AI</title>
+<title>Anya AI V3</title>
 <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
 <link rel="stylesheet" href="/static/style.css">
 </head>
@@ -57,7 +57,7 @@
 <!-- ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
 <div class="app-shell" id="app" style="display:none;">
   <aside class="sidebar">
-    <div class="logo">ANYA <span>AI</span></div>
+    <div class="logo">Anya <span>AI V3</span></div>
 
     <div class="profile-row">
       <div class="profile-avatar" id="profileAvatar" title="Сменить аватар">👤</div>
@@ -69,36 +69,53 @@
     <div class="new-chat" id="newChat">＋ Новый чат</div>
     <div class="history" id="history"></div>
     <div class="bottom">
-      <span id="profileName"></span>
+      <span id="profileName">Гость</span>
       <div class="bottom-actions">
-        <button class="theme-btn" id="themeBtn" title="Тема">🌙</button>
-        <button class="theme-btn" id="logoutBtn" title="Выйти">⎋</button>
+        <button class="icon-btn" id="settingsBtn" title="Настройки">⚙️</button>
+        <button class="icon-btn" id="logoutBtn" title="Выйти">⎋</button>
       </div>
     </div>
   </aside>
 
   <main class="main">
-    <div class="topbar">Anya AI <span class="mode-pill" id="modePill">Персонаж</span></div>
-    <div class="chat" id="chat">
-      <div class="chat-inner" id="chatInner"></div>
+    <div class="topbar">
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <span class="topbar-title">Anya AI V3</span>
+      <span class="mode-pill" id="modePill" style="display:none;">Персонаж</span>
     </div>
+    
+    <div class="chat" id="chat">
+      <div class="chat-inner" id="chatInner">
+        <div class="greeting" id="greetingScreen">
+          <h1>Привет, я Аня.</h1>
+          <p>Давайте начнём общение. Чем я могу помочь?</p>
+        </div>
+      </div>
+    </div>
+
     <div class="composer-wrap">
-      <div class="mode-select">
-        <button class="active" data-mode="character">Персонаж</button>
-        <button data-mode="human">Человек</button>
-        <button data-mode="neural">Нейронка</button>
-      </div>
       <div class="composer">
-        <textarea id="input" rows="1" placeholder="Напиши сообщение Anya..."></textarea>
-        <button id="send" title="Отправить">➤</button>
-      </div>
-      <div class="disclaimer">
-        Anya может ошибаться. Это открытый проект — проверяй её.
-        · <a href="/static/privacy.html" target="_blank">Конфиденциальность</a>
-        · <a href="/static/terms.html" target="_blank">Условия</a>
+        <textarea id="input" rows="1" placeholder="Напиши сообщение..."></textarea>
+        <button id="send" title="Отправить">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
       </div>
     </div>
   </main>
+</div>
+
+<!-- МОДАЛКА НАСТРОЕК -->
+<div class="modal-overlay" id="settingsModal" style="display:none;">
+  <div class="modal">
+    <h2>Настройки</h2>
+    <p class="modal-sub">Выбери тему оформления:</p>
+    <div class="theme-list">
+      <button class="theme-opt" data-set-theme="light">Светлая (Классика)</button>
+      <button class="theme-opt" data-set-theme="dark">Тёмная (Неон)</button>
+      <button class="theme-opt" data-set-theme="sakura">Сакура (Розовая)</button>
+    </div>
+    <button class="modal-close" id="closeSettings">Закрыть</button>
+  </div>
 </div>
 
 <script src="/static/script.js"></script>
