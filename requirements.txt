@@ -1,0 +1,7 @@
+torch
+fastapi
+uvicorn
+pyyaml
+numpy
+fastapi-security-headers
+fastapi-guard

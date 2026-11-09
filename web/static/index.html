@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Anya AI V1</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23a18cd1'/><stop offset='100%' stop-color='%23fbc2eb'/></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23g)'/><path d='M50 20 L65 45 L50 80 L35 45 Z' fill='white' opacity='0.9'/></svg>">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body data-theme="light">
+
+    <!-- Фоновые пятна -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- ЭКРАН ВХОДА -->
+    <div class="auth" id="authScreen">
+        <div class="auth-card">
+            <h1>ANYA <span>AI</span></h1>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Вход</button>
+                <button class="auth-tab" data-tab="register">Регистрация</button>
+            </div>
+            <input type="text" id="authName" placeholder="Имя профиля" autocomplete="username">
+            <div class="pw-wrap">
+                <input type="password" id="authPassword" placeholder="Пароль" autocomplete="current-password">
+                <button type="button" class="pw-toggle" id="pwToggle">👁</button>
+            </div>
+            <div class="auth-error" id="authError"></div>
+            <button class="auth-submit" id="authSubmit">Войти</button>
+            <p class="auth-note">Данные хранятся локально. Это учебный проект.</p>
+        </div>
+    </div>
+
+    <!-- СТАРТОВЫЙ ЭКРАН -->
+    <div class="welcome" id="welcomeScreen" style="display:none;">
+        <div class="welcome-inner">
+            <h1>ANYA <span>AI</span></h1>
+            <p class="welcome-sub">Выбери режим</p>
+            <div class="welcome-cards">
+                <div class="welcome-card" data-mode="character">
+                    <div class="wc-icon">🎭</div>
+                    <div class="wc-title">Персонаж</div>
+                    <div class="wc-desc">Герой из книги или игры</div>
+                </div>
+                <div class="welcome-card" data-mode="human">
+                    <div class="wc-icon">💬</div>
+                    <div class="wc-title">Человек</div>
+                    <div class="wc-desc">Обычный разговор</div>
+                </div>
+                <div class="welcome-card" data-mode="neural">
+                    <div class="wc-icon">🧠</div>
+                    <div class="wc-title">Нейронка</div>
+                    <div class="wc-desc">Код и технологии</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- САЙДБАР -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo" style="font-weight:700; font-size:1.2rem; background:var(--user-msg-bg); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Anya V1</div>
+            <button class="icon-btn" id="close-sidebar-btn" style="width:35px;height:35px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+        </div>
+        
+        <div class="profile-row">
+            <div class="profile-avatar" id="profileAvatar" title="Сменить аватар">👤</div>
+            <select id="profileSelect"></select>
+            <button id="newProfileBtn" class="icon-btn" style="width:35px;height:35px;">＋</button>
+            <input type="file" id="avatarInput" accept="image/*" style="display:none">
+        </div>
+
+        <button class="new-chat-btn" id="newChatBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Новый чат
+        </button>
+        
+        <div class="chat-list" id="history"></div>
+        
+        <div class="bottom">
+            <span id="profileName">Гость</span>
+            <div class="bottom-actions">
+                <button class="icon-btn" id="settingsBtn">⚙️</button>
+                <button class="icon-btn" id="logoutBtn">⎋</button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ОСНОВНАЯ ОБЛАСТЬ -->
+    <div class="main-content">
+        <header>
+            <div class="header-left">
+                <button class="icon-btn" id="open-sidebar-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+                </button>
+                <div class="logo">Anya AI V1</div>
+            </div>
+            <div class="header-right">
+                <span class="mode-pill" id="modePill" style="background:var(--hover-bg); padding:5px 12px; border-radius:20px; font-size:0.8rem; color:var(--text-muted);">Персонаж</span>
+            </div>
+        </header>
+
+        <div class="chat-wrapper">
+            <div class="welcome-screen" id="greetingScreen">
+                <h1 class="welcome-title">Привет, я Аня.</h1>
+                <p class="welcome-subtitle">Давайте начнём общение. Чем я могу помочь?</p>
+            </div>
+
+            <div class="chat-messages" id="chatInner"></div>
+
+            <div class="input-area">
+                <div class="mode-select">
+                    <button class="active" data-mode="character">Персонаж</button>
+                    <button data-mode="human">Человек</button>
+                    <button data-mode="neural">Нейронка</button>
+                </div>
+                <div class="input-box">
+                    <textarea id="input" rows="1" placeholder="Напиши сообщение..."></textarea>
+                    <button class="send-btn" id="sendBtn">
+                        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛКА НАСТРОЕК -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal">
+            <h2>Настройки</h2>
+            <p class="modal-desc">Выбери тему оформления:</p>
+            <div class="theme-options">
+                <button class="theme-btn" data-theme-val="light">Светлая (Классика)</button>
+                <button class="theme-btn" data-theme-val="dark">Тёмная (Неон)</button>
+                <button class="theme-btn" data-theme-val="sakura">Сакура (Розовая)</button>
+            </div>
+            <button class="new-chat-btn close-modal-btn" id="closeSettingsBtn">Закрыть</button>
+        </div>
+    </div>
+    <!-- МОДАЛКА ОБНОВЛЕНИЯ -->
+    <div class="modal-overlay" id="updateModal">
+        <div class="modal" style="text-align: center;">
+            <div style="font-size: 40px; margin-bottom: 10px;">🚀</div>
+            <h2>Доступно обновление!</h2>
+            <p class="modal-desc">Anya AI обновилась до версии <span id="newVersion" style="font-weight: bold; color: var(--accent);">V3.0</span>. Стала умнее и быстрее.</p>
+            <button class="new-chat-btn close-modal-btn" id="applyUpdateBtn" style="margin-top: 10px;">Обновить сейчас</button>
+            <button style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer; font-size:13px; width:100%;" id="skipUpdateBtn">Напомнить позже</button>
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
